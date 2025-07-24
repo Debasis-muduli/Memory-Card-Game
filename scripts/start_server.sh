@@ -1,16 +1,16 @@
 #!/bin/bash
-
 set -e
-echo "🚀 Starting web server and deploying app..."
+
 APP_DIR="/usr/share/nginx/html"
 
-# Remove default nginx files
-sudo rm -rf "$APP_DIR"/*
+echo "🧹 Cleaning existing files..."
+sudo rm -rf $APP_DIR/*
 
-# Copy your app files from CodeDeploy directory to nginx directory
-# Ensure these files (index.html, style.css, script.js, images)
-# are part of your CodeBuild artifact and are present in /home/ec2-user
-# after the CodeDeploy agent copies them.
-sudo cp -r /home/ec2-user/index.html /home/ec2-user/style.css /home/ec2-user/script.js /home/ec2-user/images "$APP_DIR"/
+echo "📁 Copying new app files..."
+sudo cp /home/ec2-user/index.html $APP_DIR/
+sudo cp /home/ec2-user/style.css $APP_DIR/
+sudo cp /home/ec2-user/script.js $APP_DIR/
+sudo cp -r /home/ec2-user/images $APP_DIR/
+
+echo "🔄 Restarting nginx..."
 sudo systemctl restart nginx
-echo "✅ App deployed and nginx restarted."
