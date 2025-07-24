@@ -1,15 +1,17 @@
 version: 0.2
+
 phases:
   install:
     commands:
-      - echo Installing... # Placeholder for any install commands (e.g., npm install)
+      - echo Installing dependencies...
   build:
     commands:
-      - echo Building... # Placeholder for any build commands (e.g., npm run build)
+      - echo Building application...
       - mkdir -p output
-      # Copy only the necessary files for deployment into the output directory
-      - cp -r index.html css js assets appspec.yml scripts output/
+      - cp index.html script.js style.css buildspec.yml appspec.yml -t output/
+      - cp -r images output/
+      - cp -r scripts output/
+
 artifacts:
   files:
-    - output/**/* # Package everything within the output directory
-  discard-paths: no # Keep the directory structure inside the artifact
+    - output/**/*
